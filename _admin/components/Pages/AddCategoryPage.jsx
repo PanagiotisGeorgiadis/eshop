@@ -1,0 +1,72 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+import AdminMenu from "../AdminMenu/AdminMenu.jsx";
+import PageTitle from "../Generic/PageTitle.jsx";
+import CategoryForm from "../Forms/CategoryForm.jsx";
+import AdminFooter from "../Generic/AdminFooter.jsx";
+
+export default class AddCategoryPage extends React.Component {
+
+	constructor() {
+
+		super();
+		// this.textareaHandler = this.handleTextareaChange.bind(this);
+		// this.displayInputHandler = this.handleDisplayInputChange.bind(this);
+		// this.categoryInputHandler = this.handleCategoryInputChange.bind(this);
+		// this.saveCategoryHandler = this.saveCategory.bind(this);
+		this.state = {
+			adminMenuData: {
+			},
+			pageTitleData: {
+				containerId: null,
+				containerClassName: null,
+				pageTitleId: null,
+				pageTitleClassName: "text-center",
+				pageTitleText: "Προσθήκη νέας Κατηγορίας"
+			},
+			informationMessageData: {
+				containerId: null,
+				containerClassName: "container text-center",
+				informationMessageId: "message_container",
+				informationMessageClassName: "col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8 hidden",
+				informationMessageText: null 
+			},
+			categoryFormData: {
+
+			},
+			adminFooterData: {
+				container: {
+					id: null,
+					className: "footer_container"
+				},
+				footer: {					
+					id: null,
+					className: "footer_content",
+					text: "Copyright 2017"
+				}
+			}
+		};
+	}
+	// TODO: Add the message update through react!
+	componentWillMount() {
+
+	}
+
+	render() {
+
+		return (
+
+			<div>
+				<AdminMenu />
+				<PageTitle pageTitleData = {this.state.pageTitleData} />
+				<CategoryForm />
+				<AdminFooter containerData = {this.state.adminFooterData.container} footerData = {this.state.adminFooterData.footer} />
+			</div>
+		);
+	}
+}
+
+const page_root = document.getElementById("add_category_root");
+
+ReactDOM.render(<AddCategoryPage />, page_root);

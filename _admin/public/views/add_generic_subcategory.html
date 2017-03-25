@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Προσθήκη υπο-κατηγορίας</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/styles/AdminMenu.css">
+	<link rel="stylesheet" type="text/css" href="/styles/add_subcategory.css">
+	<link href="https://fonts.googleapis.com/css?family=GFS+Didot" rel="stylesheet">
+</head>
+<body>
+
+	<div id="admin_menu_root"></div>
+
+	<h3 class="page_title"> Προσθήκη νέας γενικής υποκατηγορίας </h3>
+	<hr/>
+
+	<div id="form_container">
+		
+		<form id="add_generic_subcategory_form" method="POST" >
+
+			<div class="container">
+				
+				<div class="row">
+
+					<div class="column text_center">
+
+						<label class="select_input_label" for="category_name"> Κατηγορία που ανήκει: </label>
+						<select id="category_name_select_input" class="select_input_element" name="category_name">
+							<option> Λευκά είδη </option>
+							<option> Είδη Σκίασης </option>
+							<option> Ταπετσαρίες </option>
+							<option> Δάπεδα </option>
+							<option> Στρώμματα Οικιακής χρήσης </option>
+							<option> Ξενοδοχειακός Ιματισμός </option>
+						</select>
+
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="column_half">
+						<label class="input_text_label" for="generic_subcategory_display_name"> Όνομα γενικής υπόκατηγορίας στα Ελληνικά: </label>
+						<input id="display_name_input" type="text" name="generic_subcategory_display_name" />
+					</div>
+
+					<div class="column_half">
+						<label class="input_text_label" for="generic_subcategory_name"> Όνομα γενικής υπόκατηγορίας στα Αγγλικά: </label>
+						<input id="name_input" type="text" name="generic_subcategory_name" />
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="column">
+						<label class="input_text_label" for="tags"> Tags: </label>
+						<textarea id="tags_input" rows="5" name="tags" placeholder="Υφάσματα, μαξιλάρια, πετσέτες.."></textarea>
+					</div>
+					
+				</div>
+
+			</div>
+
+			<input id="submit_button" class="button" type="submit" name="submit_button" value="Αποθήκευση" />
+		</form>
+
+	</div>
+
+
+	<script type="text/javascript" src="/components/AdminMenu.min.js"></script>
+</body>
+</html>
