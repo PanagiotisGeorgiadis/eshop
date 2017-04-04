@@ -1,7 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 
-import DataTable from "./DataTable/DataTable.jsx"
+import DataTable from "./DataTable.jsx"
 
 export default class CategoriesDataTable extends React.Component {
 
@@ -18,7 +18,7 @@ export default class CategoriesDataTable extends React.Component {
 		xhr.open("GET", url, true);
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		xhr.onreadystatechange = function() {
+		xhr.onreadystatechange = () => {
 
 			if(xhr.readyState == 4) {
 
@@ -74,6 +74,5 @@ export default class CategoriesDataTable extends React.Component {
 	}
 }
 
-const reactTableRoot = document.getElementById("react_table_root");
-
-ReactDOM.render(<CategoriesDataTable />, reactTableRoot);
+// const reactTableRoot = document.getElementById("react_table_root");
+// ReactDOM.render(<CategoriesDataTable />, reactTableRoot);

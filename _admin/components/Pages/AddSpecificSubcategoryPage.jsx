@@ -1,35 +1,29 @@
 import React from "react";
 
 import PageTitle from "../Generic/PageTitle.jsx";
-import CategoryForm from "../Forms/CategoryForm.jsx";
+import SpecificSubcategoryForm from "../Forms/SpecificSubcategoryForm.jsx";
 
-export default class AddCategoryPage extends React.Component {
+export default class AddSpecificSubcategoryPage extends React.Component {
 
 	constructor() {
-
 		super();
 		this.state = {
-
 			pageTitleData: {
 				containerId: null,
-				containerClassName: null,
+				containerClassName: "container",
 				pageTitleId: null,
 				pageTitleClassName: "text-center",
-				pageTitleText: "Προσθήκη νέας Κατηγορίας"
+				pageTitleText: "Προσθήκη νέας Ειδικής Υποκατηγορίας"
 			}
-		};
-	}
-
-	componentWillMount() {
-
+		}
 	}
 
 	render() {
 
-		return (
+		return(
 			<div>
 				<PageTitle pageTitleData = {this.state.pageTitleData} />
-				<CategoryForm />
+				<SpecificSubcategoryForm />
 			</div>
 		);
 	}

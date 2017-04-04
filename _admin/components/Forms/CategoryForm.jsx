@@ -1,10 +1,7 @@
 import React from "react";
-//import ReactDOM from "react-dom";
 
-import DataFormInputText from "../FormElements/DataFormInputText.jsx";
-import DataFormTextarea from "../FormElements/DataFormTextarea.jsx";
-import DataFormInputButton from "../FormElements/DataFormInputButton.jsx";
 import InformationMessage from "../Generic/InformationMessage.jsx";
+import DataForm from "../FormElements/DataForm.jsx";
 import APIManager from "../../utils/APIManager.js";
 
 export default class CategoryForm extends React.Component {
@@ -17,131 +14,146 @@ export default class CategoryForm extends React.Component {
 		this.categoryInputHandler = this.handleCategoryInputChange.bind(this);
 		this.saveCategoryHandler = this.saveCategory.bind(this);
 		// this.printInformationMessageHandler = this.printInformationMessage.bind(this);
-
-		// textInputs is kept for backup purposes of dynamic examples.
-			// textInputs: [
-			// 	{
-			// 		containerClass: "form-group col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-4",
-			// 		labelClass: "input_text_label",
-			// 		labelText: "Όνομα κατηγορίας στα Ελληνικά: ",
-			// 		inputName: "display_name",
-			// 		inputId: "display_name_input",
-			// 		inputClass: "form-control",
-			// 		inputValue: ""
-			// 	},
-			// 	{
-			// 		containerClass: "form-group col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-4",
-			// 		labelClass: "input_text_label",
-			// 		labelText: "Όνομα κατηγορίας στα Αγγλικά: ",
-			// 		inputName: "category_name",
-			// 		inputId: "category_name_input",
-			// 		inputClass: "form-control",
-			// 		inputValue: ""
-			// 	}
-			// ],
 		this.state = {
-			display_name: {
-				containerClass: "form-group col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-3",
-				labelClass: "input_text_label",
-				labelText: "Όνομα κατηγορίας στα Ελληνικά: ",
-				inputName: "display_name",
-				inputId: "display_name_input",
-				inputClass: "form-control",
-				inputValue: "",
-				onChange: this.displayInputHandler,
-				timestamp: "1"
-			},
-			category_name: {
-				containerClass: "form-group col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-3",
-				labelClass: "input_text_label",
-				labelText: "Όνομα κατηγορίας στα Αγγλικά: ",
-				inputName: "category_name",
-				inputId: "category_name_input",
-				inputClass: "form-control",
-				inputValue: "",
-				onChange: this.categoryInputHandler,
-				timestamp: "2"
-			},
-			textarea: {
-				containerClass: "form-group col-xs-offset-2 col-xs-8",
-				labelClass: "input_text_label",
-				labelText: "Tags: ",
-				textareaName: "tags",
-				textareaId: "category_tags_input",
-				textareaClass: "form-control",
-				textareaRows: 5,
-				textareaPlaceholder: "Υφάσματα, μαξιλάρια, πετσέτες..",
-				textareaValue: "",
-				onChange: this.textareaHandler,
-				timestamp: "3"
-			},
-			submitButton: {
-				id: "submit_button",
-				className: "btn btn-success",
-				name: "submit_button",
-				value: "Αποθήκευση",
-				onClick: this.saveCategoryHandler
-			},
+			formShouldUpdate: false,
+			formId: "add_categories_form",
+			formMethod: "POST",
+			formRows: [
+				{
+					inputElements: [
+						{
+							containerData: {
+								className: "form-group col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-3"
+							},
+							labelData: {
+								className: "input_text_label",
+								inputName: "display_name",
+								text: "Όνομα κατηγορίας στα Ελληνικά: "
+							},
+							inputData: {
+								id: "display_name_input",
+								className: "form-control",
+								name: "display_name",
+								value: undefined,
+								type: "text",
+								onChange: this.displayInputHandler
+							}
+						},
+						{
+							containerData: {
+								className: "form-group col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-3"
+							},
+							labelData: {
+								className: "input_text_label",
+								inputName: "category_name",
+								text: "Όνομα κατηγορίας στα Αγγλικά: "
+							},
+							inputData: {
+								id: "category_name_input",
+								className: "form-control",
+								name: "category_name",
+								value: undefined,
+								type: "text",
+								onChange: this.categoryInputHandler
+							}
+						}
+					]
+				},
+				{
+					textareaElements: [
+						{
+							containerData: {
+								className: "form-group col-xs-offset-2 col-xs-8"
+							},
+							labelData: {
+								className: "input_text_label",
+								inputName: "tags",
+								text: "Tags: "
+							},
+							textareaData: {
+								id: "category_tags_input",
+								className: "form-control",
+								name: "tags",
+								rows: 5,
+								placeholder: "Υφάσματα, μαξιλάρια, πετσέτες..",
+								value: undefined,
+								onChange: this.textareaHandler
+							}
+						}
+					]
+				},
+				{
+					inputElements: [
+						{
+							containerData: {
+								className: "form-group text-center"
+							},
+							inputData: {
+								id: "submit_button",
+								className: "btn btn-success",
+								name: "submit_button",
+								value: "Αποθήκευση",
+								type: "submit",
+								onClick: this.saveCategoryHandler
+							}
+						}
+					]
+				}
+			],
 			informationMessageData: {
 				containerId: null,
 				containerClassName: "container text-center",
 				informationMessageId: "message_container",
 				informationMessageClassName: "col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8 hiddenMessage",
 				informationMessageText: null,
-				timestamp: "4"
-			},
+			}
 		};
 	}
 
 	handleTextareaChange(event) {
 
-		let updatedTextareaState = Object.assign({}, this.state.textarea);
-		updatedTextareaState.textareaValue = event.target.value;
+		let updatedFormRowsState = Object.assign([], this.state.formRows);
+		updatedFormRowsState[1].textareaElements[0].textareaData.value = event.target.value;
 
 		this.setState({
-			textarea: updatedTextareaState
+			formShouldUpdate: false,
+			formRows: updatedFormRowsState
 		});
 	}
 
 	handleDisplayInputChange(event) {
 
-		let updatedInputState = Object.assign({}, this.state.display_name);
-		updatedInputState.inputValue = event.target.value;
+		let updatedInputState = Object.assign([], this.state.formRows);
+		updatedInputState[0].inputElements[0].inputData.value = event.target.value;
 
 		this.setState({
-			display_name: updatedInputState
+			formShouldUpdate: false,
+			formRows: updatedInputState
 		});
 	}
 
 	handleCategoryInputChange(event) {
 
-		let updatedInputState = Object.assign({}, this.state.category_name);
-		updatedInputState.inputValue = event.target.value;
+		let updatedInputState = Object.assign([], this.state.formRows);
+		updatedInputState[0].inputElements[1].inputData.value = event.target.value;
 
 		this.setState({
-			category_name: updatedInputState
+			formShouldUpdate: false,
+			formRows: updatedInputState
 		});
 	}
 
 	resetInputElements() {
 
-		let displayNameTextInputState = Object.assign({}, this.state.display_name);
-		let categoryNameTextInputState = Object.assign({}, this.state.category_name);
-		let updatedTextareaState = Object.assign({}, this.state.textarea);
+		let updatedFormRowsState = Object.assign({}, this.state.formRows);
 
-		displayNameTextInputState.inputValue = "";
-		displayNameTextInputState.timestamp = Date.now();
-		
-		categoryNameTextInputState.inputValue = "";
-		categoryNameTextInputState.timestamp = Date.now() + 10;
-
-		updatedTextareaState.textareaValue = "";
-		updatedTextareaState.timestamp = Date.now() + 20;
+		updatedFormRowsState[0].inputElements[0].inputData.value = undefined;
+		updatedFormRowsState[0].inputElements[1].inputData.value = undefined;
+		updatedFormRowsState[1].textareaElements[0].textareaData.value = undefined;
 
 		this.setState({
-			display_name: displayNameTextInputState,
-			category_name: categoryNameTextInputState,
-			textarea: updatedTextareaState
+			formShouldUpdate: true,
+		 	formRows: updatedFormRowsState
 		});
 	}
 
@@ -149,7 +161,6 @@ export default class CategoryForm extends React.Component {
 
 		let updatedInformationMessageState = Object.assign({}, this.state.informationMessageData);
 		updatedInformationMessageState.informationMessageClassName += " hiddenMessage";
-		updatedInformationMessageState.timestamp = Date.now() + 40;
 
 		this.setState({
 			informationMessageData: updatedInformationMessageState
@@ -167,7 +178,6 @@ export default class CategoryForm extends React.Component {
 
 		updatedInformationMessageState.informationMessageText = response;
 		viewScope.resetInputElements();
-		updatedInformationMessageState.timestamp = Date.now() + 30;
 
 		viewScope.setState({
 			informationMessageData: updatedInformationMessageState
@@ -185,72 +195,26 @@ export default class CategoryForm extends React.Component {
 		var viewScope = this;
 		var url = "/api/category";
 		var params = JSON.stringify({
-			"display_name": this.state.display_name.inputValue,
-			"category_name": this.state.category_name.inputValue,
-			"category_tags": this.state.textarea.textareaValue
+			"display_name": this.state.formRows[0].inputElements[0].inputData.value,
+			"category_name": this.state.formRows[0].inputElements[1].inputData.value,
+			"category_tags": this.state.formRows[1].textareaElements[0].textareaData.value
 		});
-		
+
 		APIManager.post(url, "", params, this.printInformationMessage, this);
 	}
 
 	componentWillMount() {
+		// Nothing happens here for now.
 	}
 
 	render() {
 
-		// let textInputs;
-		// if(this.state.textInputs.length) {
-
-		// 	textInputs = this.state.textInputs.map( (textInput, iterator) => {
-
-		// 		return (
-		// 			<DataFormInputText key = {iterator} inputData = {textInput} />
-		// 		);
-		// 	});
-		// }
-
-		// let textAreas;
-		// if(this.state.textAreas.length) {
-
-		// 	textAreas = this.state.textAreas.map( (textArea, iterator) => {
-
-		// 		return (
-		// 			<DataFormTextarea key = {iterator} inputData = {textArea} />
-		// 		);
-		// 	});
-		// }
-
 		return (
 
 			<div>
-				<InformationMessage key = {this.state.informationMessageData.timestamp} informationMessageData = {this.state.informationMessageData} />
-
-				<form id="add_category_form" method="POST">
-
-					<div className = "container">
-
-						<div className = "row">
-							<DataFormInputText key = {this.state.display_name.timestamp} inputData = {this.state.display_name} />
-							<DataFormInputText key = {this.state.category_name.timestamp} inputData = {this.state.category_name} />
-						</div>
-
-						<div className = "row">
-							<DataFormTextarea key = {this.state.textarea.timestamp} inputData = {this.state.textarea} />
-						</div>
-
-						<div className = "row text-center">
-							<DataFormInputButton inputData = {this.state.submitButton} />
-						</div>
-
-					</div>
-
-				</form>
-
+				<InformationMessage key = { Date.now() } informationMessageData = {this.state.informationMessageData} />
+				<DataForm formId = { this.state.formId } formMethod = { this.state.formMethod } formRows = { this.state.formRows } formShouldUpdate = { this.state.formShouldUpdate } />
 			</div>
 		);
 	}
 }
-
-//const categoryFormContainer = document.getElementById("category_form_root");
-
-//ReactDOM.render(<CategoryForm />, categoryFormContainer);

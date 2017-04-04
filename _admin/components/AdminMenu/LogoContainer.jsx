@@ -1,58 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class LogoContainer extends React.Component {
 
 	constructor() {
 
 		super();
-		this.state = {
-
-			categories: [],
-			subcategories: []
-		}
-	}
-
-	componentWillMount() {
-
-		this.setState({categories: [
-			{
-				name: "Λευκά είδη",
-				title: "Λευκά είδη",
-				subcategory: "Yfasmata"
-			},
-			{
-				name: "Είδη Σκίασης",
-				title: "Είδη Σκίασης",
-				subcategory: "Kourtines"
-			},
-			{
-				name: "Ταπετσαρίες",
-				title: "Ταπετσαρίες",
-				subcategory: "Example"
-			},
-			{
-				name: "Δάπεδα",
-				title: "Δάπεδα",
-				subcategory: "Example"
-			},
-			{
-				name: "Στρώμματα Οικιακής χρήσης",
-				title: "Στρώμματα Οικιακής χρήσης",
-				subcategory: "Example"
-			},
-			{
-				name: "Ξενοδοχειακός Ιματισμός",
-				title: "Ξενοδοχειακός Ιματισμός",
-				subcategory: "Example"
-			}
-		]});
+		this.state = {}
 	}
 
 	render() {
 		return (
 			<div className="logo_container">
-				<a href="/admin"> Καπετανάκη eshop </a>
+				<Link className="logo_link" to="/admin">
+					Καπετανάκη eshop
+				</Link>
 			</div>
 		);
 	}
 }
+
+//<a href="/admin"> Καπετανάκη eshop </a>

@@ -22,12 +22,15 @@ export default class AdminFooter extends React.Component {
 
 		let updatedContainerState = Object.assign({}, this.state.container);
 
-		if(propsObject.id) 
-			updatedContainerState.id = propsObject.id;
+		if(propsObject) {
+			
+			if(propsObject.id) 
+				updatedContainerState.id = propsObject.id;
 
-		if(propsObject.className)
-			updatedContainerState.className = propsObject.className;
-
+			if(propsObject.className)
+				updatedContainerState.className = propsObject.className;
+		}
+		
 		this.setState({
 			container: updatedContainerState
 		});
@@ -37,15 +40,17 @@ export default class AdminFooter extends React.Component {
 
 		let updatedFooterState = Object.assign({}, this.state.footer);
 
-		if(propsObject.id)
-			updatedFooterState.id = propsObject.id;
+		if(propsObject) {
+		
+			if(propsObject.id)
+				updatedFooterState.id = propsObject.id;
 
-		if(propsObject.className)
-			updatedFooterState.className = propsObject.className;
+			if(propsObject.className)
+				updatedFooterState.className = propsObject.className;
 
-		if(propsObject.text)
-			updatedFooterState.text = propsObject.text;
-
+			if(propsObject.text)
+				updatedFooterState.text = propsObject.text;
+		}
 		this.setState({
 			footer: updatedFooterState
 		});

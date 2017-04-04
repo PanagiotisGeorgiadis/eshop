@@ -22,7 +22,7 @@ export default class AdminMenuSuboptionsContainer extends React.Component {
 
 				return (
 
-					<AdminMenuSuboption key = { suboption.name } suboptionName = { suboption.name } hrefValue = { suboption.hrefValue } />
+					<AdminMenuSuboption key = { suboption.name } suboptionName = { suboption.name } hrefValue = { suboption.hrefValue } clickHandler = { suboption.clickHandler }/>
 				);
 			});
 		}

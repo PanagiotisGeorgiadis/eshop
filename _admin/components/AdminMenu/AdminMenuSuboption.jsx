@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 export default class AdminMenuSuboption extends React.Component {
 
@@ -14,10 +16,16 @@ export default class AdminMenuSuboption extends React.Component {
 	render() {
 
 		return (
-			
-			<a className = "menu_suboption" href = { this.props.hrefValue }>
+			<Link className = "menu_suboption" to = { this.props.hrefValue }>
 				{ this.props.suboptionName }
-			</a>
+			</Link>
 		);
 	}
 }
+
+/*
+	<a className = "menu_suboption" href = { this.props.hrefValue } onClick = { this.props.clickHandler } >
+		{ this.props.suboptionName }
+	</a>
+
+*/

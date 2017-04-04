@@ -22,18 +22,34 @@ body {
 	width: 100%;
 }
 
-.logo_container a {
+.logo_link {
 
 	margin-left: 1em;
 	
 	color: white;
 	font-size: 24px;
 	text-decoration: none;
+
+	cursor: pointer;
 }
 
-.logo_container a:hover {
+.logo_link:hover {
 
 	color: #CCA43B;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.logo_link:active {
+
+	color: white;
+	text-decoration: none;
+}
+
+.logo_link:focus {
+
+	color: #CCA43B;
+	text-decoration: none;
 }
 
 .filler_div {
@@ -120,6 +136,12 @@ body {
 	text-decoration: none;
 }
 
+.menu_suboption:focus {
+
+	/*background-color: transparent;*/
+	color: white;
+	text-decoration: none;
+}
 
 
 

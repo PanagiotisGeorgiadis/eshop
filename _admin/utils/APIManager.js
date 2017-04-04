@@ -1,10 +1,25 @@
 export default {
 
-	get: (url, params, callback) => {
+	get: (url, params, callback, callbackScope) => {
 
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", url, true);
+
+		xhr.onreadystatechange = function() {
+
+			if(xhr.readyState == 4) {
+
+				if(xhr.status != 200)
+					callback("Some error occured! " + xhr.responseText, null, callbackScope);
+
+				callback(null, xhr.responseText, callbackScope);
+
+			}
+		}
+		xhr.send(params);
 	},
 
-	post: (url, requestHeader, body, callback, callbackScope) => {
+	post: (url, requestHeader, params, callback, callbackScope) => {
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
@@ -20,13 +35,13 @@ export default {
 			if(xhr.readyState == 4) {
 
 				if(xhr.status != 200)
-						callback(err, null, callbackScope);
+						callback("Some error occured! " + xhr.responseText, null, callbackScope);
 
 				callback(null, xhr.responseText, callbackScope);
 
 			}
 		}
-		xhr.send(body);
+		xhr.send(params);
 	},
 
 	put: () => {

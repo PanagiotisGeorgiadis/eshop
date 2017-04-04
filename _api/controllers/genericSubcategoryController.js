@@ -57,9 +57,10 @@ module.exports = {
 
 		var genericSubcategoryModel = new GenericSubcategoryModel();
 
-		genericSubcategoryModel.display_name = params.display_name;
-		genericSubcategoryModel.category_name = params.category_name;
-		genericSubcategoryModel.category_tags = params.category_tags;
+		genericSubcategoryModel.display_name = params.generic_subcategory_display_name;
+		genericSubcategoryModel.name = params.generic_subcategory_name;
+		genericSubcategoryModel.tags = params.generic_subcategory_tags;
+		genericSubcategoryModel.category = params.category_name;
 
 		genericSubcategoryModel.save(function(err, savedObject) {
 

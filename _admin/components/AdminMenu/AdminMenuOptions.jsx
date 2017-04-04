@@ -19,7 +19,7 @@ export default class AdminMenuOptions extends React.Component {
 			<div className = "admin_menu_options">
 				{ this.props.menuOptionName }
 				<i className = "fa fa-caret-down" aria-hidden="true"></i>
-				<AdminMenuSuboptionsContainer suboptions = { this.props.suboptions } />
+				<AdminMenuSuboptionsContainer suboptions = { this.props.suboptions } clickHandler = { this.props.clickHandler }/>
 			</div>
 		);
 	}

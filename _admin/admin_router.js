@@ -28,6 +28,27 @@ router.get("/", function(request, response, next) {
 	});
 });
 
+router.get("/page2", function(request, response, next) {
+	
+	var options = {
+		root: __dirname + "/public/views/",
+		headers: {
+			"x-timestamp": Date.now(),
+			"x-sent": true
+		}
+	}
+
+	var filename = "index.html";
+	response.sendFile(filename, options, function(err) {
+
+		if(err) {
+			console.log(err);
+		} else {
+			console.log("Sent: " + filename);
+		}
+	});
+});
+
 router.get("/add_category", function(request, response, next) {
 
 	var options = {

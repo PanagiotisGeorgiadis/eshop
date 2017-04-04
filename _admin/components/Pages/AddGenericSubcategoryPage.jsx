@@ -1,12 +1,11 @@
 import React from "react";
 
 import PageTitle from "../Generic/PageTitle.jsx";
-import CategoryForm from "../Forms/CategoryForm.jsx";
+import GenericSubcategoryForm from "../Forms/GenericSubcategoryForm.jsx";
 
-export default class AddCategoryPage extends React.Component {
+export default class AddGenericSubcategoryPage extends React.Component {
 
 	constructor() {
-
 		super();
 		this.state = {
 
@@ -15,7 +14,7 @@ export default class AddCategoryPage extends React.Component {
 				containerClassName: null,
 				pageTitleId: null,
 				pageTitleClassName: "text-center",
-				pageTitleText: "Προσθήκη νέας Κατηγορίας"
+				pageTitleText: "Προσθήκη νέας Γενικής Υποκατηγορίας"
 			}
 		};
 	}
@@ -26,10 +25,10 @@ export default class AddCategoryPage extends React.Component {
 
 	render() {
 
-		return (
+		return(
 			<div>
 				<PageTitle pageTitleData = {this.state.pageTitleData} />
-				<CategoryForm />
+				<GenericSubcategoryForm />
 			</div>
 		);
 	}
