@@ -1,8 +1,8 @@
 import React from "react";
 
-import InformationMessage from "../Generic/InformationMessage.jsx";
-import DataForm from "../FormElements/DataForm.jsx";
 import APIManager from "../../utils/APIManager.js";
+import DataForm from "../FormElements/DataForm.jsx";
+import InformationMessage from "../Generic/InformationMessage.jsx";
 
 export default class CategoryForm extends React.Component {
 
@@ -201,10 +201,6 @@ export default class CategoryForm extends React.Component {
 		});
 
 		APIManager.post(url, "", params, this.printInformationMessage, this);
-	}
-
-	componentWillMount() {
-		// Nothing happens here for now.
 	}
 
 	render() {

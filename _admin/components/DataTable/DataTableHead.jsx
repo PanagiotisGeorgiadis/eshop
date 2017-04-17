@@ -5,18 +5,38 @@ export default class DataTableHead extends React.Component {
 	constructor() {
 
 		super();
+		this.state = {
+			tableHeaderData: []
+		};
+	}
+
+	updateComponentState(tableHeaderData) {
+
+		var updatedComponentState = Object.assign({}, this.state);
+
+		if(tableHeaderData)
+			updatedComponentState.tableHeaderData = tableHeaderData;
+
+		this.setState({
+			tableHeaderData: updatedComponentState.tableHeaderData
+		});
+	}
+	
+	componentWillMount() {
+
+		if(this.props.tableHeaderData)
+			this.updateComponentState(this.props.tableHeaderData);
 	}
 
 	render() {
 
 		let dataTableHeaders;
-		
-		if(this.props.tableHeaders.length) {
+		if(this.state.tableHeaderData.length) {
 
-			dataTableHeaders = this.props.tableHeaders.map( (tableHeader, iterator) => {
+			dataTableHeaders = this.state.tableHeaderData.map( (tableHeader, iterator) => {
 
 				return (
-					<th key = {iterator}> {tableHeader} </th>
+					<th key = { iterator } > { tableHeader } </th>
 				);
 			});
 		}
@@ -26,6 +46,7 @@ export default class DataTableHead extends React.Component {
 			<thead className = "table_header">
 				<tr>
 					{ dataTableHeaders }
+					<th> { "Options" } </th>
 				</tr>
 			</thead>
 		);

@@ -14,7 +14,7 @@ export default class DataForm extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			formId: "add_categories_form",
+			formId: null,
 			formMethod: "POST",
 			formRows: []
 		};
@@ -51,11 +51,6 @@ export default class DataForm extends React.Component {
 		return false;
 	}
 
-	componentWillReceiveProps() {
-
-		// console.log("DataForm componentWillReceiveProps called!");
-	}
-
 	componentWillMount() {
 
 		let updatedFormState = Object.assign({}, this.state);
@@ -83,13 +78,13 @@ export default class DataForm extends React.Component {
 
 				var key = Date.now() + iterator;
 				return (
-					<FormRow key = { key } rowElements = { this.state.formRows[iterator] } />
+					<FormRow key = { key } rowElements = { formRow } />
 				);
 			});
 		}
 
 		return (
-			<div className="container">
+			<div className = "container" >
 				<form id = { this.state.formId } method = { this.state.formMethod } >
 					{ formRows }
 				</form>

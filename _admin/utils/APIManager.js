@@ -35,7 +35,7 @@ export default {
 			if(xhr.readyState == 4) {
 
 				if(xhr.status != 200)
-						callback("Some error occured! " + xhr.responseText, null, callbackScope);
+					callback("Some error occured! " + xhr.responseText, null, callbackScope);
 
 				callback(null, xhr.responseText, callbackScope);
 
