@@ -1,5 +1,7 @@
 import React from "react";
 
+import ComponentHelper from "../../utils/ComponentHelperClass";
+
 export default class SelectOptionElement extends React.Component {
 
 	constructor() {
@@ -14,28 +16,12 @@ export default class SelectOptionElement extends React.Component {
 		};
 	}
 
-	updateComponentState(propsObject) {
-
-		let updatedOptionData = Object.assign({}, this.state.optionData);
-
-		if(propsObject.id)
-			updatedOptionData.id = propsObject.id;
-
-		if(propsObject.className)
-			updatedOptionData.className = propsObject.className;
-
-		if(propsObject.value)
-			updatedOptionData.value = propsObject.value;
-
-		this.setState({
-			optionData: updatedOptionData
-		});
-	}
-
 	componentWillMount() {
 
-		if(this.props.inputData)
-			this.updateComponentState(this.props.inputData);
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props);
+		this.setState(updatedComponentState);
 	}
 	
 	render() {

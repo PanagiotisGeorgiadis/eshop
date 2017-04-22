@@ -1,5 +1,7 @@
 import React from "react";
 
+import ComponentHelper from "../../utils/ComponentHelperClass";
+
 export default class Label extends React.Component {
 	
 	constructor() {
@@ -12,38 +14,12 @@ export default class Label extends React.Component {
 		};
 	}
 
-	getUpdatedLabelState(labelData) {
-
-		let updatedLabelState = Object.assign({}, this.state);
-		
-		if(labelData.id)
-			updatedLabelState.id = labelData.id;
-		
-		if(labelData.className)
-			updatedLabelState.className = labelData.className;
-		
-		if(labelData.inputName)
-			updatedLabelState.inputName = labelData.inputName;
-
-		if(labelData.text)
-			updatedLabelState.text = labelData.text;
-
-		return updatedLabelState;
-	}
-
 	componentWillMount() {
-		
-		let updatedLabelState = Object.assign({}, this.state);
 
-		if(this.props.labelData)
-			updatedLabelState = this.getUpdatedLabelState(this.props.labelData);
+		let updatedComponentState = Object.assign({}, this.state);
 
-		this.setState({
-			id: updatedLabelState.id,
-			className: updatedLabelState.className,
-			inputName: updatedLabelState.inputName,
-			text: updatedLabelState.text
-		});
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props.labelData);
+		this.setState(updatedComponentState);
 	}
 
 	render() {

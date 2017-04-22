@@ -1,5 +1,6 @@
 import React from "react";
 
+import ComponentHelper from "../../utils/ComponentHelperClass";
 import Label from "./Label.jsx";
 
 export default class TextareaElement extends React.Component {
@@ -30,95 +31,12 @@ export default class TextareaElement extends React.Component {
 		};
 	}
 
-	getUpdatedContainerState(containerData) {
-
-		let updatedContainerState = Object.assign({}, this.state.containerData);
-
-		if(containerData.id)
-			updatedContainerState.id = containerData.id;
-
-		if(containerData.className)
-			updatedContainerState.className = containerData.className;
-
-		return updatedContainerState;
-	}
-
-	getUpdatedLabelState(labelData) {
-
-		let updatedLabelState = Object.assign({}, this.state.labelData);
-
-		if(labelData.id)
-			updatedLabelState.id = labelData.id;
-
-		if(labelData.className)
-			updatedLabelState.className = labelData.className;
-
-		if(labelData.inputName)
-			updatedLabelState.inputName = labelData.inputName;
-
-		if(labelData.text)
-			updatedLabelState.text = labelData.text;
-
-		return updatedLabelState;
-	}
-
-	getUpdatedTextareaState(containerData) {
-
-		let updatedTextareaState = Object.assign({}, this.state.textareaData);
-
-		if(containerData.id)
-			updatedTextareaState.id = containerData.id;
-
-		if(containerData.className)
-			updatedTextareaState.className = containerData.className;
-
-		if(containerData.name)
-			updatedTextareaState.name = containerData.name;
-
-		if(containerData.rows)
-			updatedTextareaState.rows = containerData.rows;
-
-		if(containerData.placeholder)
-			updatedTextareaState.placeholder = containerData.placeholder;
-
-		if(containerData.value)
-			updatedTextareaState.value = containerData.value;
-
-		if(containerData.onChange) {
-
-			updatedTextareaState.onChange = containerData.onChange;
-			updatedTextareaState.onChange.bind(this);
-		}
-
-		return updatedTextareaState;
-	}
-
-	updateComponentState(propsObject) {
-
-		let updatedContainerState = Object.assign({}, this.state.containerData);
-		let updatedLabelState = Object.assign({}, this.state.labelData);
-		let updatedTextareaState = Object.assign({}, this.state.textareaData);
-
-		if(propsObject.containerData)
-			updatedContainerState = this.getUpdatedContainerState(propsObject.containerData);
-
-		if(propsObject.labelData)
-			updatedLabelState = this.getUpdatedLabelState(propsObject.labelData);
-
-		if(propsObject.textareaData)
-			updatedTextareaState = this.getUpdatedTextareaState(propsObject.textareaData);
-
-		this.setState({
-			containerData: updatedContainerState,
-			labelData: updatedLabelState,
-			textareaData: updatedTextareaState
-		});
-	}
-
 	componentWillMount() {
 
-		if(this.props.elementData)
-			this.updateComponentState(this.props.elementData);
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props.elementData);
+		this.setState(updatedComponentState);
 	}
 	
 	render() {

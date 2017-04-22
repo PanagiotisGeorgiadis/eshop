@@ -1,5 +1,6 @@
 import React from "react";
 
+import ComponentHelper from "../../utils/ComponentHelperClass";
 import Label from "./Label.jsx";
 import SelectOptionElement from "./SelectOptionElement.jsx";
 
@@ -29,101 +30,12 @@ export default class SelectElement extends React.Component {
 		};
 	}
 
-	getUpdatedLabelState(labelData) {
-
-		let updatedLabelState = Object.assign({}, this.state.labelData);
-
-		if(labelData.id)
-			updatedLabelState.id = labelData.id;
-
-		if(labelData.className)
-			updatedLabelState.className = labelData.className;
-
-		if(labelData.inputName)
-			updatedLabelState.inputName = labelData.inputName;
-
-		if(labelData.text)
-			updatedLabelState.text = labelData.text;
-
-		return updatedLabelState;
-	}
-
-	getUpdatedContainerState(containerData) {
-
-		let updatedContainerState = Object.assign({}, this.state.containerData);
-
-		if(containerData.id)
-			updatedContainerState.id = containerData.id;
-
-		if(containerData.className)
-			updatedContainerState.className = containerData.className;
-
-		return updatedContainerState;
-	}
-
-	getUpdatedSelectElementState(selectData) {
-
-		let updatedSelectState = Object.assign({}, this.state.selectData);
-
-		if(selectData.id)
-			updatedSelectState.id = selectData.id;
-
-		if(selectData.className)
-			updatedSelectState.className = selectData.className;
-
-		if(selectData.name)
-			updatedSelectState.name = selectData.name;
-
-		if(selectData.onChange) {
-
-			updatedSelectState.onChange = selectData.onChange;
-			updatedSelectState.onChange.bind(this);
-		}
-
-		return updatedSelectState;
-	}
-
-	getUpdatedOptionElements(optionsData) {
-
-		let updatedOptions = Object.assign([], this.state.options);
-
-		if(optionsData.length)
-			updatedOptions = optionsData;
-
-		return updatedOptions;
-	}
-
-	updateComponentState(propsObject) {
-
-		let updatedLabelState = Object.assign({}, this.state.labelData);
-		let updatedContainerState = Object.assign({}, this.state.containerData);
-		let updatedSelectState = Object.assign({}, this.state.selectData);
-		let updatedOptions = Object.assign([], this.state.options);
-
-		if(propsObject.labelData)
-			updatedLabelState = this.getUpdatedLabelState(propsObject.labelData);
-
-		if(propsObject.containerData)
-			updatedContainerState = this.getUpdatedContainerState(propsObject.containerData);
-
-		if(propsObject.selectData)
-			updatedSelectState = this.getUpdatedSelectElementState(propsObject.selectData);
-
-		if(propsObject.options)
-			updatedOptions = this.getUpdatedOptionElements(propsObject.options);
-
-		this.setState({
-			labelData: updatedLabelState,
-			containerData: updatedContainerState,
-			selectData: updatedSelectState,
-			options: updatedOptions
-		});
-	}
-
 	componentWillMount() {
 
-		if(this.props.elementData)
-			this.updateComponentState(this.props.elementData);
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props.elementData);
+		this.setState(updatedComponentState);
 	}
 
 	render() {
@@ -134,7 +46,7 @@ export default class SelectElement extends React.Component {
 			selectOptions = this.state.options.map( (option, iterator) => {
 
 				return (
-					<SelectOptionElement key = {iterator} inputData = {option} />
+					<SelectOptionElement key = {iterator} optionData = {option} />
 				);
 			});
 		}

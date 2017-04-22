@@ -1,7 +1,8 @@
 import React from "react";
 
-import SelectElement from "./SelectElement.jsx";
+import ComponentHelper from "../../utils/ComponentHelperClass";
 import InputElement from "./InputElement.jsx";
+import SelectElement from "./SelectElement.jsx";
 import TextareaElement from "./TextareaElement.jsx";
 
 export default class FormRow extends React.Component {
@@ -15,50 +16,12 @@ export default class FormRow extends React.Component {
 		};
 	}
 
-	getUpdatedRowElementsState(rowElements) {
-
-		let updatedRowElementsState = Object.assign({}, this.state);
-
-		if(rowElements) {
-			
-			if(rowElements.inputElements)
-				updatedRowElementsState.inputElements = rowElements.inputElements;
-
-			if(rowElements.selectElements)
-				updatedRowElementsState.selectElements = rowElements.selectElements;
-
-			if(rowElements.textareaElements)
-				updatedRowElementsState.textareaElements = rowElements.textareaElements;
-		}
-
-		return updatedRowElementsState;
-	}
-
-	shouldComponentUpdate() {
-
-		// console.log("FormRow shouldComponentUpdate called!");
-
-		// return false;
-	}
-
-	componentWillReceiveProps() {
-
-		// console.log("FormRow componentWillReceiveProps called!");
-	}
-
 	componentWillMount() {
 
-		let updatedRowElementsState = Object.assign({}, this.state);
+		let updatedComponentState = Object.assign({}, this.state);
 
-		if(this.props.rowElements)
-			updatedRowElementsState = this.getUpdatedRowElementsState(this.props.rowElements);
-
-
-		this.setState({
-			inputElements: updatedRowElementsState.inputElements,
-			selectElements: updatedRowElementsState.selectElements,
-			textareaElements: updatedRowElementsState.textareaElements
-		});
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props.rowElements);
+		this.setState(updatedComponentState);
 	}
 
 	render() {

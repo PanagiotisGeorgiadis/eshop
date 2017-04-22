@@ -1,12 +1,6 @@
 import React from "react";
 
-// Iterate through an object and its unknown props.
-/*var data = [{},{},{},{},{},{},{},{}];
-for( props in data[0] ) {
-    console.log(props);
-	console.log(data[0][props]);
-}*/
-
+import ComponentHelper from "../../utils/ComponentHelperClass";
 import FormRow from "./FormRow.jsx";
 
 export default class DataForm extends React.Component {
@@ -20,29 +14,6 @@ export default class DataForm extends React.Component {
 		};
 	}
 
-	updateFormState(formId, formMethod) {
-
-		let updatedFormState = Object.assign({}, this.state);
-
-		if(formId)
-			updatedFormState.formId = formId;
-
-		if(formMethod)
-			updatedFormState.formMethod = formMethod;
-
-		return updatedFormState;
-	}
-
-	updateFormRowsState(formRows) {
-
-		let updatedFormRows = Object.assign([], this.state.formRows);
-
-		if(formRows)
-			updatedFormRows = formRows;
-
-		return updatedFormRows;
-	}
-
 	shouldComponentUpdate(nextProps, nextState) {
 
 		if(nextProps.formShouldUpdate)
@@ -53,20 +24,10 @@ export default class DataForm extends React.Component {
 
 	componentWillMount() {
 
-		let updatedFormState = Object.assign({}, this.state);
-		let updatedFormRowsState = Object.assign([], this.state.formRows)
+		let updatedComponentState = Object.assign({}, this.state);
 
-		if(this.props.formId && this.props.formMethod)
-			updatedFormState = this.updateFormState(this.props.formId, this.props.formMethod);
-
-		if(this.props.formRows)
-			updatedFormRowsState = this.updateFormRowsState(this.props.formRows);
-
-		this.setState({
-			formId: updatedFormState.formId,
-			formMethod: updatedFormState.formMethod,
-			formRows: updatedFormRowsState
-		});
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props);
+		this.setState(updatedComponentState);
 	}
 	
 	render() {
