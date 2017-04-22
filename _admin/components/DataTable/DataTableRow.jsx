@@ -73,8 +73,6 @@ export default class DataTableRow extends React.Component {
 
 	updateComponentState(tableRowData) {
 
-		console.log("DataTableRow updateComponentState function called!");
-		console.log(tableRowData);
 		var updatedTableRowData = Object.assign({}, this.state.tableRowData);
 
 		if(tableRowData.id)
@@ -126,3 +124,4 @@ export default class DataTableRow extends React.Component {
 			</tr>
 		);
 	}
+}

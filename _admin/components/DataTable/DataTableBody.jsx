@@ -26,23 +26,19 @@ export default class DataTableBody extends React.Component {
 
 	componentWillMount() {
 
-		console.log("DataTableBody componentWillMount function called!");
-		console.log(this.props);
 		if(this.props.tableRows)
 			this.updateComponentState(this.props.tableRows);
 	}
 
 	render() {
 
-		console.log("DataTableBody render function called!");
-		console.log(this.state);
 		let dataTableRows;
 		if(this.state.tableRows.length) {
 
 			dataTableRows = this.state.tableRows.map( (tableRow) => {
 
 				return (
-					<DataTableRow key = {tableRow._id} tableRowData = { tableRow } />
+					<DataTableRow key = {tableRow.id} tableRowData = { tableRow } />
 				);
 			});
 		}
