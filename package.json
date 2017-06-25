@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "://github.com/PanagiotisGeorgiadis/eshop"
+    "url": "https://github.com/PanagiotisGeorgiadis/eshop"
   },
   "author": "Panagiotis Georgiadis",
   "license": "ISC",
-  "homepage": "https://github.com/PanagiotisGeorgiadis/eshop/tomis#readme",
+  "homepage": "https://github.com/PanagiotisGeorgiadis/eshop/#readme",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.23.1",
