@@ -22,8 +22,7 @@ var specificSubcategorySchema = mongoose.Schema({
 		type: mongoose.Schema.Types.Mixed,
 		required: true
 	},
-	subcategory: {
-
+	generic_subcategory: {
 		type: mongoose.Schema.Types.Mixed,
 		required: true
 	},

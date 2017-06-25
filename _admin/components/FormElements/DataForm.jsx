@@ -22,6 +22,14 @@ export default class DataForm extends React.Component {
 		return false;
 	}
 
+	componentWillReceiveProps(nextProps) {
+
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, nextProps);
+		this.setState(updatedComponentState);
+	}
+
 	componentWillMount() {
 
 		let updatedComponentState = Object.assign({}, this.state);

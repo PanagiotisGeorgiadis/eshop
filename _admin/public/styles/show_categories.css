@@ -1,11 +1,19 @@
+.table-responsive {
+
+	max-height: 70vh;
+	min-height: .01%;
+	overflow-y: auto;
+}
 .data_table {
 
 	margin: auto;
-	margin-top: 5%;
+	/*margin-top: 5%;*/
 
 	border-spacing: 0;
 	border-collapse: collapse;
 
+	table-layout: fixed;
+	/*width: 100vw;*/
 }
 
 .data_table th {
@@ -37,15 +45,27 @@
 	/*padding-right: 10em;*/
 
 	border-top: 1px solid #DDDDDD;
+
+	/*word-break: break-all;*/
+	/*white-space: nowrap;*/
+	/*width: 500px;*/
 }
 
-.table_row {
+.data_table td div {
+
+	min-width: 12em;
+	max-width: 450px;
+	max-height: 5em;
+	overflow: hidden;
+}
+
+/*.table_row {
 
 	opacity: 1;
 	transition: opacity 1s ease;
-}
+}*/
 
-.categoryId {
+/*.categoryId {
 
 	display: none;
 }
@@ -54,7 +74,7 @@
 
 	max-width: 20em;
 	word-break: break-word;
-}
+}*/
 
 .edit_category_button {
 

@@ -45,6 +45,7 @@ router.get("/:resource/:id", function(request, response) {
 			confirmation: "success",
 			message: result
 		});
+		return;
 	});
 });
 
@@ -60,11 +61,15 @@ router.post("/:resource/", function(request, response) {
 
 			if(err) {
 
-				response.status(500).send("Some error occured while adding a new category!" + err);
+				response.status(500).send("Some error occured while adding a new category! " + err);
 				return;
 			}
 
-			response.status(200).send("Successfully added new " + resource + " " + result + "!");
+			response.status(200).send({
+				message: "Successfully added new " + resource + " " + result.display_name + "!",
+				result
+			});
+			return;
 		});
 	});
 });
@@ -77,9 +82,11 @@ router.put("/:resource/:id", function(request, response) {
 	var Controller = controllers[resource];
 	var params = null;
 
-	if(id)
-		Controller.update(id, params, false, function(err, result) {
+	if(id) {
 
+		Controller.update(id, params, false, function(err, result) {
+			console.log(err);
+			console.log(result);
 			if(err) {
 
 				response.send("An Error Occured While updating the category! " + err);
@@ -87,7 +94,9 @@ router.put("/:resource/:id", function(request, response) {
 			}
 
 			response.send("Successfully Updated the Category!");
+			return;
 		});
+	}
 });
 
 router.delete("/:resource/:id", function(request, response) {
@@ -105,7 +114,11 @@ router.delete("/:resource/:id", function(request, response) {
 				return;
 			}
 
-			response.send("Successfully Deleted " + result + "!");
+			response.send({
+				message: "Successfully Deleted Entry!",
+				response: result
+			});
+			return;
 		});
 		//category.deleteCategory(id, response);
 });

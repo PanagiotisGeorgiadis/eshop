@@ -93,7 +93,7 @@ router.delete("/:id", function(request, response) {
 				return;
 			}
 
-			response.send("Successfully Deleted " + result + "!");
+			response.send( "Successfully Deleted " + result);
 		});
 		//category.deleteCategory(id, response);
 });

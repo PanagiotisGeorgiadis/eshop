@@ -1,5 +1,7 @@
 import React from "react";
 
+import ComponentHelper from "../../utils/ComponentHelperClass";
+
 export default class PageTitle extends React.Component {
 
 	constructor() {
@@ -18,55 +20,27 @@ export default class PageTitle extends React.Component {
 		};
 	}
 
-	getUpdatedContainerState(propsObject) {
+	componentWillReceiveProps(nextProps) {
 
-		let updatedContainerState = Object.assign({}, this.state.containerData);
+		let updatedComponentState = Object.assign({}, this.state);
 
-		if(propsObject.containerId)
-			updatedContainerState.id = propsObject.containerId;
-
-		if(propsObject.containerClassName)
-			updatedContainerState.className = propsObject.containerClassName;
-
-		return updatedContainerState;
-	}
-
-	getUpdatedPageTitleState(propsObject) {
-
-		let updatedPageTitleState = Object.assign({}, this.state.pageTitleData);
-
-		if(propsObject.pageTitleId)
-			updatedPageTitleState.id = propsObject.pageTitleId;
-
-		if(propsObject.pageTitleClassName)
-			updatedPageTitleState.className = propsObject.pageTitleClassName;
-
-		if(propsObject.pageTitleText)
-			updatedPageTitleState.text = propsObject.pageTitleText;
-
-		return updatedPageTitleState;
-	}
-
-	updateComponentState(propsObject) {
-
-		let updatedContainerState = this.getUpdatedContainerState(propsObject);
-		let updatedPageTitleState = this.getUpdatedPageTitleState(propsObject);
-
-		this.setState({
-			pageTitleData: updatedPageTitleState
-		});
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, nextProps);
+		this.setState(updatedComponentState);
 	}
 
 	componentWillMount() {
 
-		this.updateComponentState(this.props.pageTitleData);
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props);
+		this.setState(updatedComponentState);
 	}
 	
 	render() {
 
 		return (
-			<div id = {this.state.containerData.id} className = {this.state.containerData.className}>
-				<h3 id = {this.state.pageTitleData.id} className = {this.state.pageTitleData.className}>
+			<div id = {this.state.containerData.id} className = {this.state.containerData.className} >
+				<h3 id = {this.state.pageTitleData.id} className = {this.state.pageTitleData.className} >
 					{this.state.pageTitleData.text}
 				</h3>
 				<hr />

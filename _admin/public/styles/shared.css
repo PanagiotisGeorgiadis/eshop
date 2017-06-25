@@ -8,6 +8,11 @@ textarea {
 	resize: none;
 }
 
+.page_title {
+
+	font-weight: bold;
+}
+
 #message_container { 
 
 	min-height: 4em;
@@ -16,6 +21,11 @@ textarea {
 	
 	transition: opacity 2s ease;
 	margin-bottom: 4em;
+}
+
+.table_row_fadeOut {
+
+	opacity: 0;
 }
 
 .hiddenMessage {
@@ -46,3 +56,4 @@ textarea {
 	vertical-align: middle;
 	text-align: center;
 }
+

@@ -25,10 +25,20 @@ export default class TextareaElement extends React.Component {
 				name: null,
 				rows: 5,
 				placeholder: null,
+				defaultValue: undefined,
 				value: undefined,
 				onChange: null
-			}
+			},
+			actionType: null
 		};
+	}
+
+	componentWillReceiveProps(nextProps) {
+
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, nextProps.elementData);
+		this.setState(updatedComponentState);
 	}
 
 	componentWillMount() {
@@ -38,14 +48,19 @@ export default class TextareaElement extends React.Component {
 		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props.elementData);
 		this.setState(updatedComponentState);
 	}
-	
+
+	onChangeHandler(event) {
+
+		if(this.state.textareaData.onChange)
+			this.state.textareaData.onChange(this.state.actionType, event.target.value);
+	}
+
 	render() {
 
 		return (
-			
-			<div id = {this.state.containerData.id} className = {this.state.containerData.className}>
+			<div id = { this.state.containerData.id } className = { this.state.containerData.className }>
 				<Label key = { Date.now() } labelData = { this.state.labelData } />
-				<textarea id = {this.state.textareaData.id} className = {this.state.textareaData.className} rows = {this.state.textareaData.rows} name = {this.state.textareaData.name} placeholder = {this.state.textareaData.placeholder} value = {this.state.textareaData.value} onChange = {this.state.textareaData.onChange}></textarea>
+				<textarea id = { this.state.textareaData.id } className = { this.state.textareaData.className } rows = { this.state.textareaData.rows } name = { this.state.textareaData.name } placeholder = { this.state.textareaData.placeholder }  defaultValue = { this.state.textareaData.defaultValue } value = { this.state.textareaData.value } onChange = { this.onChangeHandler.bind(this) }></textarea>
 			</div>
 		);
 	}

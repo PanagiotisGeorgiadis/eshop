@@ -1,21 +1,21 @@
 {
   "name": "eshop",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "This is an e-shop template for a friend.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
     "webpack-dev-server": "webpack-dev-server --content-base src --inline --hot",
-    "react-compile": "webpack ./_admin/components/AdminPanel.jsx",
+    "react-compile": "webpack ./_admin/AdminPanel.jsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://Zarchon@bitbucket.org/Zarchon/tomis.git"
+    "url": "://github.com/PanagiotisGeorgiadis/eshop"
   },
   "author": "Panagiotis Georgiadis",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/Zarchon/tomis#readme",
+  "homepage": "https://github.com/PanagiotisGeorgiadis/eshop/tomis#readme",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.23.1",
@@ -33,8 +33,11 @@
     "nodemon": "^1.11.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.4",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.0"
   }

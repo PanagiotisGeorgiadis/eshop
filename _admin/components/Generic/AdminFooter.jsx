@@ -1,16 +1,18 @@
 import React from "react";
 
+import ComponentHelper from "../../utils/ComponentHelperClass";
+
 export default class AdminFooter extends React.Component {
 
 	constructor() {
 
 		super();
 		this.state = {
-			container: {
+			containerData: {
 				id: null,
 				className: null
 			},
-			footer: {
+			footerData: {
 				id: null,
 				className: null,
 				text: null
@@ -18,57 +20,21 @@ export default class AdminFooter extends React.Component {
 		};
 	}
 
-	updateContainerState(propsObject) {
-
-		let updatedContainerState = Object.assign({}, this.state.container);
-
-		if(propsObject) {
-			
-			if(propsObject.id) 
-				updatedContainerState.id = propsObject.id;
-
-			if(propsObject.className)
-				updatedContainerState.className = propsObject.className;
-		}
-		
-		this.setState({
-			container: updatedContainerState
-		});
-	}
-
-	updateFooterState(propsObject) {
-
-		let updatedFooterState = Object.assign({}, this.state.footer);
-
-		if(propsObject) {
-		
-			if(propsObject.id)
-				updatedFooterState.id = propsObject.id;
-
-			if(propsObject.className)
-				updatedFooterState.className = propsObject.className;
-
-			if(propsObject.text)
-				updatedFooterState.text = propsObject.text;
-		}
-		this.setState({
-			footer: updatedFooterState
-		});
-	}
-
 	componentWillMount() {
 
-		this.updateContainerState(this.props.containerData);
-		this.updateFooterState(this.props.footerData);
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props);
+		this.setState(updatedComponentState);
 
 	}
 	
 	render() {
 
 		return (
-			<div id = {this.state.container.id} className = {this.state.container.className}>
-				<h3 id = {this.state.footer.id} className = {this.state.footer.className}>
-					{this.state.footer.text}
+			<div id = {this.state.containerData.id} className = {this.state.containerData.className}>
+				<h3 id = {this.state.footerData.id} className = {this.state.footerData.className}>
+					{this.state.footerData.text}
 				</h3>
 				<hr />
 			</div>

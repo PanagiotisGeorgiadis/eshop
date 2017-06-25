@@ -25,7 +25,7 @@ export default class Label extends React.Component {
 	render() {
 
 		return(
-			<label id = { this.state.id } className = { this.state.className } for = { this.state.inputName }>
+			<label id = { this.state.id } className = { this.state.className } htmlFor = { this.state.inputName }>
 				{ this.state.text }
 			</label>
 		);

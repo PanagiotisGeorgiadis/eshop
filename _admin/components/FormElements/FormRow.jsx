@@ -28,7 +28,7 @@ export default class FormRow extends React.Component {
 
 		let selectElements;
 		if(this.state.selectElements) {
-			
+
 			selectElements = this.state.selectElements.map( (selectElementData, iterator) => {
 
 				var key = Date.now() + iterator;

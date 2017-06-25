@@ -1,23 +1,20 @@
 import React from "react";
 
 import APIManager from "../../utils/APIManager.js";
+import ComponentHelper from "../../utils/ComponentHelperClass";
 import DataForm from "../FormElements/DataForm.jsx";
-import InformationMessage from "../Generic/InformationMessage.jsx";
 
 export default class CategoryForm extends React.Component {
 
 	constructor() {
 
 		super();
-		this.textareaHandler = this.handleTextareaChange.bind(this);
-		this.displayInputHandler = this.handleDisplayInputChange.bind(this);
-		this.categoryInputHandler = this.handleCategoryInputChange.bind(this);
-		this.saveCategoryHandler = this.saveCategory.bind(this);
-		// this.printInformationMessageHandler = this.printInformationMessage.bind(this);
+
 		this.state = {
 			formShouldUpdate: false,
-			formId: "add_categories_form",
+			formId: undefined,
 			formMethod: "POST",
+			formURL: "/api/category",
 			formRows: [
 				{
 					inputElements: [
@@ -34,9 +31,10 @@ export default class CategoryForm extends React.Component {
 								id: "display_name_input",
 								className: "form-control",
 								name: "display_name",
+								defaultValue: undefined,
 								value: undefined,
 								type: "text",
-								onChange: this.displayInputHandler
+								onChange: this.updateCategoryDisplayName.bind(this)
 							}
 						},
 						{
@@ -52,9 +50,10 @@ export default class CategoryForm extends React.Component {
 								id: "category_name_input",
 								className: "form-control",
 								name: "category_name",
+								defaultValue: undefined,
 								value: undefined,
 								type: "text",
-								onChange: this.categoryInputHandler
+								onChange: this.updateCategoryName.bind(this)
 							}
 						}
 					]
@@ -76,8 +75,9 @@ export default class CategoryForm extends React.Component {
 								name: "tags",
 								rows: 5,
 								placeholder: "Υφάσματα, μαξιλάρια, πετσέτες..",
+								defaultValue: undefined,
 								value: undefined,
-								onChange: this.textareaHandler
+								onChange: this.updateCategoryTags.bind(this)
 							}
 						}
 					]
@@ -92,55 +92,17 @@ export default class CategoryForm extends React.Component {
 								id: "submit_button",
 								className: "btn btn-success",
 								name: "submit_button",
-								value: "Αποθήκευση",
+								defaultValue: "Αποθήκευση",
+								value: undefined,
 								type: "submit",
-								onClick: this.saveCategoryHandler
+								onClick: this.saveCategory.bind(this)
 							}
 						}
 					]
 				}
 			],
-			informationMessageData: {
-				containerId: null,
-				containerClassName: "container text-center",
-				informationMessageId: "message_container",
-				informationMessageClassName: "col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8 hiddenMessage",
-				informationMessageText: null,
-			}
+			informationMessageHandler: null
 		};
-	}
-
-	handleTextareaChange(event) {
-
-		let updatedFormRowsState = Object.assign([], this.state.formRows);
-		updatedFormRowsState[1].textareaElements[0].textareaData.value = event.target.value;
-
-		this.setState({
-			formShouldUpdate: false,
-			formRows: updatedFormRowsState
-		});
-	}
-
-	handleDisplayInputChange(event) {
-
-		let updatedInputState = Object.assign([], this.state.formRows);
-		updatedInputState[0].inputElements[0].inputData.value = event.target.value;
-
-		this.setState({
-			formShouldUpdate: false,
-			formRows: updatedInputState
-		});
-	}
-
-	handleCategoryInputChange(event) {
-
-		let updatedInputState = Object.assign([], this.state.formRows);
-		updatedInputState[0].inputElements[1].inputData.value = event.target.value;
-
-		this.setState({
-			formShouldUpdate: false,
-			formRows: updatedInputState
-		});
 	}
 
 	resetInputElements() {
@@ -157,58 +119,85 @@ export default class CategoryForm extends React.Component {
 		});
 	}
 
-	hideInformationMessage() {
-
-		let updatedInformationMessageState = Object.assign({}, this.state.informationMessageData);
-		updatedInformationMessageState.informationMessageClassName += " hiddenMessage";
-
-		this.setState({
-			informationMessageData: updatedInformationMessageState
-		});
-	}
-
-	printInformationMessage(err, response, viewScope) {
-
-		let updatedInformationMessageState = Object.assign({}, viewScope.state.informationMessageData);
-
-		if(response.includes("Successfully"))
-			updatedInformationMessageState.informationMessageClassName = "col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8 bg-success";
-		else
-			updatedInformationMessageState.informationMessageClassName = "col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8 bg-danger";
-
-		updatedInformationMessageState.informationMessageText = response;
-		viewScope.resetInputElements();
-
-		viewScope.setState({
-			informationMessageData: updatedInformationMessageState
-		});
-
-		setTimeout(function() {
-			viewScope.hideInformationMessage();
-		}, 10000);
-	}
-
 	saveCategory(event) {
 
 		event.preventDefault();
 
-		var viewScope = this;
-		var url = "/api/category";
+		var url = this.state.formURL;
 		var params = JSON.stringify({
 			"display_name": this.state.formRows[0].inputElements[0].inputData.value,
-			"category_name": this.state.formRows[0].inputElements[1].inputData.value,
-			"category_tags": this.state.formRows[1].textareaElements[0].textareaData.value
+			"name": this.state.formRows[0].inputElements[1].inputData.value,
+			"tags": this.state.formRows[1].textareaElements[0].textareaData.value
 		});
 
-		APIManager.post(url, "", params, this.printInformationMessage, this);
+		APIManager.post(url, "", params, this.state.informationMessageHandler);
+	}
+
+	/* Start of Input Handler functions */
+	updateCategoryDisplayName(event) {
+
+		let updatedInputState = Object.assign([], this.state.formRows);
+		updatedInputState[0].inputElements[0].inputData.value = event.target.value;
+
+		this.setState({
+			formShouldUpdate: false,
+			formRows: updatedInputState
+		});
+	}
+
+	updateCategoryName(event) {
+
+		let updatedInputState = Object.assign([], this.state.formRows);
+		updatedInputState[0].inputElements[1].inputData.value = event.target.value;
+
+		this.setState({
+			formShouldUpdate: false,
+			formRows: updatedInputState
+		});
+	}
+
+	updateCategoryTags(event) {
+
+		let updatedFormRowsState = Object.assign([], this.state.formRows);
+		updatedFormRowsState[1].textareaElements[0].textareaData.value = event.target.value;
+
+		this.setState({
+			formShouldUpdate: false,
+			formRows: updatedFormRowsState
+		});
+	}
+	/* End of Input Handler functions */
+
+	shouldComponentUpdate(nextProps, nextState) {
+
+		if(nextProps.formShouldUpdate)
+			return true;
+
+		return false;
+	}
+
+	componentWillReceiveProps(nextProps) {
+
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props);
+		this.setState(updatedComponentState);
+
+		if(nextProps.resetInputElements)
+			this.resetInputElements();
+	}
+
+	componentWillMount() {
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props);
+		this.setState(updatedComponentState);
 	}
 
 	render() {
 
 		return (
-
 			<div>
-				<InformationMessage key = { Date.now() } informationMessageData = {this.state.informationMessageData} />
 				<DataForm formId = { this.state.formId } formMethod = { this.state.formMethod } formRows = { this.state.formRows } formShouldUpdate = { this.state.formShouldUpdate } />
 			</div>
 		);

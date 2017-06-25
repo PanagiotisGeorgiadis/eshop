@@ -1,13 +1,27 @@
 var mongoose = require('mongoose');
 
+mongoose.Promise = Promise;
+
 // Product Schema
 var productSchema = mongoose.Schema({
 
+	display_name: {
+		type: String,
+		required: true
+	},
 	name: {
 		type: String,
 		required: true
 	},
 	category: {
+		type: String,
+		required: true
+	},
+	generic_subcategory: {
+		type: String,
+		required: true
+	},
+	specific_subcategory: {
 		type: String,
 		required: true
 	},
@@ -17,41 +31,10 @@ var productSchema = mongoose.Schema({
 	},
 	last_modified: {
 		type: Date,
-		required: true
+		required: true,
+		default: Date.now()
 	}
 
-}, {collection: "products"});
+}, {collection: "products", versionKey: false});
 
-var Product = module.exports = mongoose.model("Product", productSchema);
-
-// getProducts
-
-module.exports = {
-
-	getCategories: function(callback, optional_limit) { // GET REQUEST
-
-		// MongoDB code here for getting all the categories or at least some of them if the optional_limit is specified.
-		Category.find(callback).limit(optional_limit);
-	},
-
-	getCategory: function() { // GET REQUEST
-
-		// MongoDB code here for getting one category. Maybe for a single form for editing purposes. may be the same as update.
-	},
-
-	addCategory: function() { // POST REQUEST
-
-		// MongoDB code here for adding a new category.
-	},
-
-	updateCategory: function() { // PUT REQUEST
-
-		// MongoDB code here for editing and updating a category. maybe the same as getCategory or maybe getCategory will return
-		// the UI as part of a get request and then it will do a put request.
-	},
-
-	deleteCategory: function() {  // DELETE REQUEST
-
-		// MongoDB code here for get one category. Maybe for edit purposes.
-	}
-}
+module.exports = mongoose.model("product", productSchema);

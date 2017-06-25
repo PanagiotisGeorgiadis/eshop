@@ -5,7 +5,7 @@ module.exports = {
     context: __dirname,
     devtool: debug ? "inline-sourcemap" : null,
     // This needs some changes.
-    entry: "./_admin/components/AdminPanel.jsx",
+    entry: "./_admin/AdminPanel.jsx",
     module: {
     loaders: [
         {
@@ -21,7 +21,7 @@ module.exports = {
     },
     output: {
         path: __dirname,
-        filename: "./_admin/components/AdminPanel.min.js"
+        filename: "./_admin/AdminPanel.min.js"
     },
     plugins: debug ? [] : [
         new webpack.optimize.DedupePlugin(),

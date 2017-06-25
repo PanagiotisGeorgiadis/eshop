@@ -19,7 +19,6 @@ var genericSubcategorySchema = mongoose.Schema({
 		required: true
 	},
 	category: {
-
 		type: mongoose.Schema.Types.Mixed,
 		required: true
 	},

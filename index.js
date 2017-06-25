@@ -9,15 +9,16 @@
 
 // This seems the best approach so far! Using modules and exporting the routes differently for front and backend.
 var express = require("express");
-//var app = express();
-//var port = process.env.PORT || 3000;
-var category = require(__dirname + "/_api/models/category.js");
+// var app = express();
+// var port = process.env.PORT || 3000;
+// var category = require(__dirname + "/_api/models/category.js");
 
 var adminApp = express();
 
 adminApp.use("/styles", express.static(__dirname + "/_admin/public/styles/"));
 adminApp.use("/scripts", express.static(__dirname + "/_admin/public/scripts/"));
-adminApp.use("/components", express.static(__dirname + "/_admin/components/"));
+// adminApp.use("/components", express.static(__dirname + "/_admin/components/"));
+adminApp.use("/components", express.static(__dirname + "/_admin/"));
 adminApp.use("/utils", express.static(__dirname + "/_admin/utils/"));
 
 adminApp.use("/admin", require(__dirname + "/_admin/admin_router.js"));

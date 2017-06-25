@@ -6,34 +6,28 @@ module.exports = {
 
 		var offset = parseInt(params.offset);
 		var limit = parseInt(params.limit);
-		var searchValue = params.searchValue;		
-		var collectionFields = "_id display_name name tags parent_subcategory last_modified";
+		var searchValue = params.searchValue;
+		var collectionFields = "_id display_name name tags category generic_subcategory last_modified";
 
 		if(searchValue) {
-			
+
 			SpecificSubcategoryModel.find({display_name: searchValue}, collectionFields, {skip: offset, limit: limit}, function(err, data) {
 
 				if(err) {
-					//response.send(err);
 					callback(err, null);
-					return
+					return;
 				}
-
-				//response.send(data);
 				callback(null, data);
 			});
-			
+
 		} else {
 
 			SpecificSubcategoryModel.find({}, collectionFields, {skip: offset, limit: limit}, function(err, data) {
 
 				if(err) {
-					//response.send(err);
 					callback(err, null);
-					return
+					return;
 				}
-
-				//response.send(data);
 				callback(null, data);
 			});
 		}
@@ -44,11 +38,9 @@ module.exports = {
 		SpecificSubcategoryModel.findById(id, function(err, category) {
 
 			if(err) {
-
 				callback(err, null);
 				return;
 			}
-
 			callback(null, category);
 		});
 	},
@@ -57,15 +49,17 @@ module.exports = {
 
 		var specificSubcategoryModel = new SpecificSubcategoryModel();
 
-		specificSubcategoryModel.display_name = params.display_name;
-		specificSubcategoryModel.category_name = params.category_name;
-		specificSubcategoryModel.category_tags = params.category_tags;
+		for(var paramProps in params) {
+			specificSubcategoryModel[paramProps] = params[paramProps];
+		}
 
 		specificSubcategoryModel.save(function(err, savedObject) {
 
-			if(err)
+			if(err) {
 				callback(err, null);
-
+				return;
+			}
+			// callback(null, savedObject.display_name);
 			callback(null, savedObject);
 		});
 	},
@@ -75,26 +69,21 @@ module.exports = {
 		SpecificSubcategoryModel.findByIdAndUpdate(id, params, {new:true}, function(err, category) {
 
 			if(err) {
-
 				callback(err, null);
 				return;
 			}
-
 			callback(null, category)
 		});
 	},
 
-	delete: function(id, callback) {
+	delete: function(specificSubcategoryId, callback) {
 
-		SpecificSubcategoryModel.findByIdAndRemove({_id: categoryId}, function(err, data) {
+		SpecificSubcategoryModel.findByIdAndRemove({_id: specificSubcategoryId}, function(err, data) {
 
 			if(err) {
-
 				callback(err, null);
 				return;
 			}
-
-			//response.status(200).send("Deletion was successful!");
 			callback(null, data);
 		});
 	}

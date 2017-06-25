@@ -23,12 +23,22 @@ export default class InputElement extends React.Component {
 				id: null,
 				className: null,
 				name: null,
+				defaultValue: undefined,
 				value: undefined,
 				type: undefined,
-				onChange: null,
-				onClick: null
-			}
+				onChange: undefined,
+				onClick: undefined
+			},
+			actionType: null
 		};
+	}
+
+	componentWillReceiveProps(nextProps) {
+
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, nextProps.elementData);
+		this.setState(updatedComponentState);
 	}
 
 	componentDidMount() {
@@ -39,13 +49,26 @@ export default class InputElement extends React.Component {
 		this.setState(updatedComponentState);
 	}
 
+	onChangeHandler(event) {
+
+		if(this.state.inputData.onChange)
+			this.state.inputData.onChange(this.state.actionType, event.target.value);
+	}
+
+	onClickHandler(event) {
+
+		event.preventDefault();
+		if(this.state.inputData.onClick)
+			this.state.inputData.onClick(this.state.actionType, event.target.value);
+	}
+
 	render() {
 
 		return (
 
-			<div id = {this.state.containerData.id} className = {this.state.containerData.className}>
+			<div id = { this.state.containerData.id } className = { this.state.containerData.className }>
 				<Label key = { Date.now() } labelData = { this.state.labelData } />
-				<input id = {this.state.inputData.id} className = {this.state.inputData.className} type = {this.state.inputData.type} name = {this.state.inputData.name} value = {this.state.inputData.value} onChange = {this.state.inputData.onChange} onClick = { this.state.inputData.onClick } />
+				<input id = { this.state.inputData.id } className = { this.state.inputData.className } type = { this.state.inputData.type } name = { this.state.inputData.name } defaultValue = { this.state.inputData.defaultValue } value = { this.state.inputData.value } onChange = { this.onChangeHandler.bind(this) } onClick = { this.onClickHandler.bind(this) } />
 			</div>
 		);
 	}

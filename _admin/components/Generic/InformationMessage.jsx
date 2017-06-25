@@ -1,5 +1,7 @@
 import React from "react";
 
+import ComponentHelper from "../../utils/ComponentHelperClass";
+
 export default class InformationMessage extends React.Component {
 
 	constructor() {
@@ -18,49 +20,21 @@ export default class InformationMessage extends React.Component {
 		};
 	}
 
-	getUpdatedContainerState(propsObject) {
+	componentWillReceiveProps(nextProps) {
 
-		let updatedContainerState = Object.assign({}, this.state.containerData);
+		// console.log(nextProps);
+		let updatedComponentState = Object.assign({}, this.state);
 
-		if(propsObject.containerId)
-			updatedContainerState.id = propsObject.containerId;
-
-		if(propsObject.containerClassName)
-			updatedContainerState.className = propsObject.containerClassName;
-
-		return updatedContainerState;
-	}
-
-	getUpdatedMessageState(propsObject) {
-
-		let updatedMessageState = Object.assign({}, this.state.messageData);
-
-		if(propsObject.informationMessageId)
-			updatedMessageState.id = propsObject.informationMessageId;
-
-		if(propsObject.informationMessageClassName)
-			updatedMessageState.className = propsObject.informationMessageClassName;
-
-		if(propsObject.informationMessageText)
-			updatedMessageState.text = propsObject.informationMessageText;
-
-		return updatedMessageState;
-	}
-
-	updateComponentState(propsObject) {
-		
-		let updatedContainerState = this.getUpdatedContainerState(propsObject);
-		let updatedMessageState = this.getUpdatedMessageState(propsObject);
-
-		this.setState({
-			containerData: updatedContainerState,
-			messageData: updatedMessageState
-		});
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, nextProps.informationMessageData);
+		this.setState(updatedComponentState);
 	}
 
 	componentWillMount() {
 
-		this.updateComponentState(this.props.informationMessageData);
+		let updatedComponentState = Object.assign({}, this.state);
+
+		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props.informationMessageData);
+		this.setState(updatedComponentState);
 	}
 	
 	render() {
