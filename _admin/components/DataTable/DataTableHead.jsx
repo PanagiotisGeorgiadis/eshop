@@ -1,8 +1,5 @@
 import React from "react";
 
-import ComponentHelper from "../../utils/ComponentHelperClass";
-import DataTableHeadCell from "./DataTableHeadCell.jsx";
-
 export default class DataTableHead extends React.Component {
 
 	constructor() {
@@ -12,13 +9,23 @@ export default class DataTableHead extends React.Component {
 			tableHeaderData: []
 		};
 	}
+
+	updateComponentState(tableHeaderData) {
+
+		var updatedComponentState = Object.assign({}, this.state);
+
+		if(tableHeaderData)
+			updatedComponentState.tableHeaderData = tableHeaderData;
+
+		this.setState({
+			tableHeaderData: updatedComponentState.tableHeaderData
+		});
+	}
 	
 	componentWillMount() {
 
-		let updatedComponentState = Object.assign({}, this.state);
-
-		ComponentHelper.updateComponentStateFromProps(updatedComponentState, this.props);
-		this.setState(updatedComponentState);
+		if(this.props.tableHeaderData)
+			this.updateComponentState(this.props.tableHeaderData);
 	}
 
 	render() {
@@ -29,7 +36,7 @@ export default class DataTableHead extends React.Component {
 			dataTableHeaders = this.state.tableHeaderData.map( (tableHeader, iterator) => {
 
 				return (
-					<DataTableHeadCell key = { iterator } content = { tableHeader } />
+					<th key = { iterator } > { tableHeader } </th>
 				);
 			});
 		}
@@ -39,6 +46,7 @@ export default class DataTableHead extends React.Component {
 			<thead className = "table_header">
 				<tr>
 					{ dataTableHeaders }
+					<th> { "Options" } </th>
 				</tr>
 			</thead>
 		);
